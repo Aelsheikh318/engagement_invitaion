@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ahmed & Doaa Engagement</title>
+
+<style>
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #fdf1ec, #f7e7d9);
+  color: #5a3e36;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* 🌸 Petals */
+.petal {
+  position: fixed;
+  top: -10%;
+  font-size: 20px;
+  opacity: 0.7;
+  animation: fall linear infinite;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(120vh) rotate(360deg); }
+}
+
+/* Poster */
+.poster {
+  height: 100vh;
+  background: url('poster.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.overlay {
+  background: rgba(255,255,255,0.85);
+  padding: 40px 50px;
+  border-radius: 30px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  line-height: 1.7;
+}
+
+.scroll-hint {
+  margin-top: 20px;
+  font-size: 0.9em;
+  opacity: 0.7;
+}
+
+/* Content */
+.content { padding: 70px 20px; }
+
+.buttons a {
+  display: inline-block;
+  background: #cfa88a;
+  color: white;
+  padding: 15px 32px;
+  margin: 10px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: 0.3s;
+}
+
+.buttons a:hover { background: #b89072; }
+
+/* Countdown */
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 50px 0;
+}
+
+.time-box {
+  background: #ffffffcc;
+  padding: 20px;
+  border-radius: 20px;
+  min-width: 90px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.time-box span {
+  font-size: 2em;
+  display: block;
+}
+
+/* Sections (hidden initially) */
+.section {
+  max-width: 760px;
+  margin: 70px auto;
+  background: #ffffffcc;
+  padding: 0 40px;
+  border-radius: 30px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.8s ease;
+}
+
+.section:target {
+  padding: 40px;
+  max-height: 1200px;
+  opacity: 1;
+}
+
+iframe { border-radius: 20px; }
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🌸 Petals Container -->
+<div id="petals"></div>
+
+<!-- Poster -->
+<div class="poster" onclick="startSite()">
+  <div class="overlay">
+    <h1>Ahmed & Doaa</h1>
+    <p class="subtitle">
+      joyfully invite you to celebrate their engagement
+      <br><br>
+      📅 2 / 2 / 2026 <br>
+      ⏰ 7:00 PM
+    </p>
+    <div class="scroll-hint">Tap anywhere to continue ↓</div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content" id="start">
+
+  <!-- Countdown -->
+  <div class="countdown">
+    <div class="time-box"><span id="days">0</span>Days</div>
+    <div class="time-box"><span id="hours">0</span>Hours</div>
+    <div class="time-box"><span id="minutes">0</span>Minutes</div>
+    <div class="time-box"><span id="seconds">0</span>Seconds</div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <a href="#location">📍 Location</a>
+    <a href="#party">🎉 The Party</a>
+    <a href="#message">💌 Leave a Message</a>
+  </div>
+
+  <!-- Location -->
+  <div id="location" class="section">
+    <h2>Location</h2>
+    <a href="https://maps.app.goo.gl/noabXgBs4jchyzeTA" target="_blank">
+      Open in Google Maps
+    </a>
+  </div>
+
+  <!-- Party -->
+  <div id="party" class="section">
+    <h2>The Party</h2>
+    <p>
+      An evening of love, laughter, music,
+      and unforgettable memories 💍✨
+    </p>
+  </div>
+
+  <!-- Message -->
+  <div id="message" class="section">
+    <h2>Leave a Message</h2>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSfwz8gIFU3fpWKofdeXek-8URDAs8-WuGU_k-X9BHM7SDA7CQ/viewform?embedded=true"
+      width="100%" height="500" frameborder="0">
+    </iframe>
+  </div>
+
+</div>
+
+<script>
+/* 🎵 Start music + scroll */
+let musicStarted = false;
+function startSite() {
+  if (!musicStarted) {
+    document.getElementById('bgMusic').play().catch(()=>{});
+    musicStarted = true;
+  }
+  document.getElementById('start').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* 🌸 Create petals */
+for (let i = 0; i < 25; i++) {
+  const petal = document.createElement('div');
+  petal.className = 'petal';
+  petal.innerHTML = '🌸';
+  petal.style.left = Math.random() * 100 + 'vw';
+  petal.style.animationDuration = (8 + Math.random() * 10) + 's';
+  petal.style.fontSize = (14 + Math.random() * 10) + 'px';
+  document.body.appendChild(petal);
+}
+
+/* ⏳ Countdown */
+const eventDate = new Date("Feb 2, 2026 19:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = eventDate - now;
+
+  if (diff < 0) return;
+
+  document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24));
+  document.getElementById('hours').innerText = Math.floor((diff / (1000*60*60)) % 24);
+  document.getElementById('minutes').innerText = Math.floor((diff / (1000*60)) % 60);
+  document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+}, 1000);
+</script>
+
+</body>
+</html>
